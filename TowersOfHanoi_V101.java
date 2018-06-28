@@ -62,24 +62,25 @@ import java.util.Scanner;
 
 public class TowersOfHanoi_V101 {
     
-    static int size;    
+      
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+        int size;  
         size = 4 ;//input.nextInt();
         String[][] disc = new String[3][size];///this is to be a user input after the game is made
         start(disc);
-        System.out.println("out of start function");
-        System.out.println(disc[0].length);
+        
         
         printStack(disc);
         int from , to ;
         for ( ; ; ){
             
-            from = input.nextInt();
-            to = input.nextInt();
+            from = (int)input.nextDouble();
+            to = (int)input.nextDouble();
+            if(inputCheck(from ,to))
             move (from , to , disc);
             printStack(disc);
-            System.out.println(smallestDiscInStack(disc[1]));
+            
         }
          ///print the start of the game
             /*
@@ -104,6 +105,17 @@ public class TowersOfHanoi_V101 {
      * if the stack TO has a bigger disk than the one From then you can move it
      
      */
+    static boolean inputCheck(int ... in){
+        boolean move = false;
+        for(int x = 0 ; x < in.length ; x++){
+            if (in[x] < 3 && in[x] >= 0   )
+                move = true;
+        else 
+                return false;
+    }
+        return true;
+}
+    
     static void move (int from , int to , String [][] disc ){
         if ((whereIsFreeInStack(disc[to]) == disc[0].length-1)){
             rlyMove(disc ,from,to);
@@ -137,7 +149,7 @@ public class TowersOfHanoi_V101 {
         for (int x = 0 ; x < disc[0].length ; x++){
             temp += " =";
             disc[0][x] = temp; 
-            System.out.println("temp :" + temp + " : disc : " + disc[0][x]  + "  : x :" + x);
+            
         }
         for(int x= 1 ; x < disc.length ; x++){
             for(int y = 0 ; y < disc[0].length ;y++){
@@ -159,7 +171,7 @@ public class TowersOfHanoi_V101 {
     static void printStack(String [][] disc){
         System.out.println("\n\t 0  \t||\t 1  \t ||\t  2  ");
             for (int y = 0  ; y < disc[0].length ; y++){
-                //System.out.print("x : " + x + " : y : " + y + "  ::  ");
+               
                 System.out.print("y:"+y+"|" ); 
                 for(int x = 0 ; x < disc.length ; x++){
                     System.out.printf("%-17s" , disc[x][y]);
